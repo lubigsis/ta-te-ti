@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    text-align: center;
+    letter-spacing: 1px;
+    margin-top: 30px;
+}
+h1 .uno{
+    color: rgb(6, 142, 6);
+}
+
+h1 .dos{
+    color: red;
+}
+
+h1 .tres{
+    color: blue;
+}
+
+.app {
+    width: 300px;
+    margin: 70px auto;
+   
+  }
+  
+  .player {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .board {
+    display: flex;
+    flex-direction: column;
+  }
+  .row {
+    display: flex;
+  }
+  .cell {
+    width: 100px;
+    height: 100px;
+    border: solid 2px black;
+    font-size: 28px;
+    font-weight: bolder;
+  }
