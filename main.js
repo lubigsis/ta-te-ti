@@ -32,7 +32,7 @@ const board = [
   function startGame() {
     renderBoard();
     turno = Math.random() < 0.5 ? 0 : 1; //el turno del jugador es aleatorio: (0 user, 1 = pc)
-    renderPlayer();
+    renderCurrentPlayer();
   
     if (turno === 0) {
       playerPlays();
@@ -40,9 +40,50 @@ const board = [
       PCPlays();
     }
   }
+//---------------------------------------------------------------jugadores
+
+function playerPlays(){
+  const cells = document.querySelectorAll('.cell');
+ 
+  cells.forEach((cell, i) => {
+      const column = i % 3;  //para saber la posición en el tablero.
+      const row = parseInt(i / 3);
+
+       if (board [row][column] === ''){ //si la casilla está vacía, le pongo un listener
+          cell.addEventListener('click', e => {
+
+            board[row][column] = 'O';
+            cell.textContent = board [row][column];
+
+            //---una vez q' el user jugó, tengo q llamar a la función p/q juegue la PC
+            PCPlays();
+         
+          });
+       }                 
+
+  });
+}
+
+//--------------------------------------------PC
+/*
+function PCPlays(){                                            /*voy x acá*/
+  renderCurrentPlayer();
+  
+  setTimeout(() => {
+    let played = false; 
+    const options = checkIfCanWin();
+  }, 1500);
+  
+}   */
+
+//----------------------------------
+//regresa todas las posibles jugadas (p/q' la pc no elija al azar)
+function checkIfCanWin(){
+
+}
+
 
   //--------------------------------------------------------------Turnos jugadores
-  function renderPlayer() {
-    document.querySelector("#playerJS").textContent = 
-    `${turno === 0 ? "Turno usuario" : "Turno PC"}`;
+  function renderCurrentPlayer() {
+    playerDiv.textContent = `${turno === 0 ?'Turno Jugador' : 'Turno PC'}`;
   }
