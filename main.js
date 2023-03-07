@@ -66,7 +66,7 @@ function playerPlays(){
 
 //--------------------------------------------PC
 /*
-function PCPlays(){                                            /*voy x acá*/
+function PCPlays(){                                        
   renderCurrentPlayer();
   
   setTimeout(() => {
@@ -78,7 +78,55 @@ function PCPlays(){                                            /*voy x acá*/
 
 //----------------------------------
 //regresa todas las posibles jugadas (p/q' la pc no elija al azar)
+//JSON permite hacer una copia de arrglos bidimensionales
+//sustituyo la copia de mi tablero por objetos
 function checkIfCanWin(){
+
+  let arreglo = JSON.parse(JSON.stringify(board));
+  
+  for (let i = 0; i < arreglo.lenght; i++){
+    for (let j = 0; j < arreglo.lenght; j++){
+      if(arreglo[i][j] === 'x'){
+        arreglo[i][j] = {
+          value: 1, i, j
+        };
+      }
+      if(arreglo[i][j] === ''){
+        arreglo[i][j] = {
+          value: 0, i, j
+        };
+      }
+      if(arreglo[i][j] === 'o'){
+        arreglo[i][j] = {
+          value: -2, i, j
+        };
+      }
+    }
+  }
+
+  //--------------------------------------------------------------relaciono todas las casillas
+  //---a cada variable se le coloca la posición de las casillas
+  let posicion1 = arreglo[0][0];
+  let posicion2 = arreglo[0][1];
+  let posicion3 = arreglo[0][2];
+  let posicion4 = arreglo[1][0];
+  let posicion5 = arreglo[1][1];
+  let posicion6 = arreglo[0][2];
+  let posicion7 = arreglo[2][0];
+  let posicion8 = arreglo[2][1];
+  let posicion9 = arreglo[2][2];
+
+
+//Todas las posibilidades en las que puedo ganar
+let solucion1 = [posicion1, posicion2, posicion3];
+let solucion2 = [posicion4, posicion5, posicion6];
+let solucion3 = [posicion7, posicion8, posicion9];
+let solucion4 = [posicion1, posicion4, posicion7];
+let solucion5 = [posicion2, posicion5, posicion8];
+let solucion6 = [posicion3, posicion6, posicion9];
+let solucion7 = [posicion1, posicion5, posicion9];
+let solucion8 = [posicion3, posicion5, posicion7];
+
 
 }
 

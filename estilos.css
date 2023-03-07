@@ -55,4 +55,5 @@ h1 .tres{
     font-size: 28px;
     font-weight: bolder;
     color: red;
+    cursor: pointer;
   }
