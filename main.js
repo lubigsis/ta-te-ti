@@ -40,7 +40,7 @@ const board = [
       PCPlays();
     }
   }
-//---------------------------------------------------------------jugadores
+//---------------------------------------------------------------jugadores--------------------------
 
 function playerPlays(){
   const cells = document.querySelectorAll('.cell');
@@ -65,16 +65,45 @@ function playerPlays(){
 }
 
 //--------------------------------------------PC
-/*
+
 function PCPlays(){                                        
   renderCurrentPlayer();
   
   setTimeout(() => {
     let played = false; 
-    const options = checkIfCanWin();
+    let opciones = checkIfCanWin();
+
+    if(opciones.length > 0){
+      let mejorOpcion  = opciones[0];
+
+      for (let i = 0; i  < mejorOpcion.length; i++){
+        if(mejorOpcion[i].value === 0){
+          let posi = mejorOpcion[i].i;
+          let posj = mejorOpcion[i].j;
+          
+          board[posi][posj] = 'X';
+          played = true;
+          break;
+        }
+      }
+
+    }else{
+      for(let i = 0; i < board.length; i++ ){
+        for(let j = 0; j < board[i].length; j++){
+          if(board[i][j] === '' && !played){
+            board[i][j] = 'X';
+            played = true;
+          }
+        }
+      }
+    }
+
+    turno = 0;
+    renderBoard();
+    renderCurrentPlayer();
   }, 1500);
   
-}   */
+}   
 
 //----------------------------------
 //regresa todas las posibles jugadas (p/q' la pc no elija al azar)
@@ -84,19 +113,19 @@ function checkIfCanWin(){
 
   let arreglo = JSON.parse(JSON.stringify(board));
   
-  for (let i = 0; i < arreglo.lenght; i++){
-    for (let j = 0; j < arreglo.lenght; j++){
-      if(arreglo[i][j] === 'x'){
+  for (let i = 0; i < arreglo.length; i++){
+    for (let j = 0; j < arreglo.length; j++){
+      if(arreglo[i][j] === 'X'){
         arreglo[i][j] = {
           value: 1, i, j
-        };
+        };                                    //estas son las OPCIONES
       }
       if(arreglo[i][j] === ''){
-        arreglo[i][j] = {
+        arreglo[i][j] = {          //lo q' hago es sumar valores
           value: 0, i, j
         };
       }
-      if(arreglo[i][j] === 'o'){
+      if(arreglo[i][j] === 'O'){
         arreglo[i][j] = {
           value: -2, i, j
         };
@@ -127,8 +156,19 @@ let solucion6 = [posicion3, posicion6, posicion9];
 let solucion7 = [posicion1, posicion5, posicion9];
 let solucion8 = [posicion3, posicion5, posicion7];
 
+//variable q' contiene todas las soluciones. Filtro y solo se regresa aquellas q' cumplan con la condición
+let respuesta = [solucion1, solucion2, solucion3, solucion4, solucion5, solucion6, solucion7, solucion8].filter((linea) => {
+  return (
+    linea[0].value + linea[1].value + linea[2].value === 2 ||
+    linea[0].value + linea[1].value + linea[2].value === -4  //le bloqueo la juaga al user q' estaría por ganar
+  );
+});
+return respuesta;
 
 }
+
+
+
 
 
   //--------------------------------------------------------------Turnos jugadores
